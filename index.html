@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Humanizor — Free AI Text Humanizer & Paraphraser Tool</title>
+  <meta name="description" content="Transform AI-generated text into natural, human-sounding writing. Free tool to humanize ChatGPT, Gemini, or any AI content. Choose tone, strength, and style. No sign-up required." />
+  <meta name="keywords" content="AI text humanizer, humanize AI text, paraphrase tool, AI content rewriter, make AI text sound human, ChatGPT humanizer, bypass AI detection" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://humanizor.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Humanizor — Free AI Text Humanizer & Paraphraser" />
+  <meta property="og:description" content="Transform AI-generated text into natural, human-sounding writing with tone and strength control." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://humanizor.com/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Humanizor — Free AI Text Humanizer" />
+  <meta name="twitter:description" content="Make AI-generated text sound natural and human. Free tool with tone control." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5536166511863260" crossorigin="anonymous"></script>
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Humanizor",
+    "url": "https://humanizor.com",
+    "description": "Free AI text humanizer and paraphraser with tone and strength control.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <style>
+    /* ---- HOME-SPECIFIC STYLES ---- */
+
+    /* Hero */
+    .hero {
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 1.1rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--green-dark); }
+    .hero-sub {
+      font-size: 17px; color: var(--ink-3);
+      max-width: 500px; margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .hero-stat {
+      display: flex; align-items: center; justify-content: center;
+      gap: 2rem; margin-top: 2rem; flex-wrap: wrap;
+    }
+    .hs-item { text-align: center; }
+    .hs-val { font-family: var(--font-serif); font-size: 28px; font-weight: 400; color: var(--ink); line-height: 1; }
+    .hs-label { font-size: 12px; color: var(--ink-4); margin-top: 3px; }
+
+    /* Tool wrap */
+    .tool-wrap { max-width: var(--max-w); margin: 0 auto 1rem; padding: 0 1.5rem; }
+
+    /* Controls */
+    .controls-row {
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 1rem;
+    }
+    .mode-pills { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+
+    .select-group { display: flex; align-items: center; gap: 7px; }
+    .select-label { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
+    select {
+      font-family: var(--font-sans); font-size: 12.5px; font-weight: 500;
+      color: var(--ink); background: var(--surface);
+      border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+      padding: 5px 10px; cursor: pointer; outline: none; transition: border-color 0.15s;
+    }
+    select:focus { border-color: var(--green); }
+
+    /* Editor grid */
+    .editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 640px) { .editor-grid { grid-template-columns: 1fr; } }
+
+    textarea {
+      width: 100%; flex: 1; min-height: 220px;
+      padding: 14px 16px; font-family: var(--font-sans);
+      font-size: 14.5px; line-height: 1.8; color: var(--ink);
+      background: var(--surface); border: none; resize: vertical; outline: none;
+    }
+    textarea::placeholder { color: var(--ink-4); }
+
+    .result-box {
+      flex: 1; min-height: 220px; padding: 14px 16px;
+      font-size: 14.5px; line-height: 1.8; color: var(--ink);
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .result-placeholder { color: var(--ink-4); font-style: italic; }
+
+    /* Action row */
+    .action-row { display: flex; align-items: center; gap: 10px; margin-top: 1rem; flex-wrap: wrap; }
+
+    /* Stats bar */
+    .stats-bar { display: none; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 1rem; }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 10px 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-label { font-size: 11px; color: var(--ink-4); text-transform: uppercase; letter-spacing: 0.06em; }
+    .stat-val { font-size: 24px; font-weight: 600; color: var(--ink); margin-top: 2px; }
+
+    /* Features grid */
+    .features-section { max-width: var(--max-w); margin: 2rem auto 0; padding: 0 1.5rem; }
+    .section-label {
+      font-size: 11.5px; font-weight: 600; color: var(--ink-4);
+      text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 1.25rem;
+    }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); gap: 1rem; }
+    .feat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .feat-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: var(--green-light); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 18px; margin-bottom: 0.85rem;
+    }
+    .feat-card h3 { font-size: 14.5px; font-weight: 600; margin-bottom: 5px; color: var(--ink); }
+    .feat-card p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
+
+    /* FAQ */
+    .faq-section { max-width: var(--max-w-prose); margin: 3rem auto 0; padding: 0 1.5rem; }
+    .faq-section h2 {
+      font-family: var(--font-serif); font-weight: 400;
+      font-size: clamp(22px,3vw,30px); color: var(--ink);
+      margin-bottom: 1.5rem; letter-spacing: -0.02em;
+    }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 1.1rem 0; }
+    .faq-q {
+      font-size: 15px; font-weight: 600; color: var(--ink);
+      cursor: pointer; display: flex; justify-content: space-between;
+      align-items: center; gap: 1rem;
+      background: none; border: none; width: 100%;
+      text-align: left; font-family: var(--font-sans); padding: 0;
+    }
+    .faq-q::after { content: '+'; font-size: 20px; color: var(--ink-4); flex-shrink: 0; transition: transform 0.2s; }
+    .faq-q.open::after { transform: rotate(45deg); }
+    .faq-a { display: none; font-size: 14.5px; color: var(--ink-3); line-height: 1.75; padding-top: 0.65rem; }
+    .faq-a.open { display: block; }
+
+    /* How it works */
+    .how-section { max-width: var(--max-w); margin: 3rem auto 0; padding: 0 1.5rem; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 1rem; margin-top: 1.25rem; }
+    .step {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem;
+      box-shadow: var(--shadow-sm); position: relative;
+    }
+    .step-num {
+      font-family: var(--font-serif); font-size: 36px; font-weight: 400;
+      color: var(--green-light); line-height: 1; margin-bottom: 0.75rem;
+    }
+    .step h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
+    .step p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <a href="/" class="nav-brand" aria-label="Humanizor home">
+    <div class="nav-logo">H</div>
+    <span class="nav-name">Humanizor</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/" class="active">Tool</a></li>
+    <li><a href="blog.html" class="hide-sm">Blog</a></li>
+    <li><a href="about.html" class="hide-sm">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="#tool" class="nav-cta">Try Free</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-label="Hero">
+  <div class="badge"><span class="badge-dot"></span>100% Free · No Sign-up</div>
+  <h1>Make your writing sound <em>human</em> again</h1>
+  <p class="hero-sub">Transform AI-generated or stiff academic text into clear, natural prose — with full tone and strength control.</p>
+  <div class="hero-actions">
+    <a href="#tool" class="btn-primary">✦ Start Humanizing</a>
+    <a href="about.html" class="btn-ghost">Learn how it works</a>
+  </div>
+  <div class="hero-stat">
+    <div class="hs-item"><div class="hs-val">6</div><div class="hs-label">Writing modes</div></div>
+    <div class="hs-item"><div class="hs-val">5</div><div class="hs-label">Tone options</div></div>
+    <div class="hs-item"><div class="hs-val">0</div><div class="hs-label">Sign-ups needed</div></div>
+  </div>
+</section>
+
+<!-- AD SLOT TOP -->
+<div class="ad-slot">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5536166511863260"
+    data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<!-- TOOL -->
+<div class="tool-wrap" id="tool">
+
+  <!-- Mode pills + settings -->
+  <div class="controls-row">
+    <div class="mode-pills" role="group" aria-label="Writing mode">
+      <button class="pill-tab active" data-mode="humanize">Humanize AI</button>
+      <button class="pill-tab" data-mode="paraphrase">Paraphrase</button>
+      <button class="pill-tab" data-mode="simplify">Simplify</button>
+      <button class="pill-tab" data-mode="formal">Formal</button>
+      <button class="pill-tab" data-mode="expand">Expand</button>
+      <button class="pill-tab" data-mode="academic">Academic</button>
+    </div>
+    <div class="select-group">
+      <label class="select-label" for="tone">Tone</label>
+      <select id="tone">
+        <option value="natural">Natural</option>
+        <option value="conversational">Conversational</option>
+        <option value="professional">Professional</option>
+        <option value="casual">Casual</option>
+        <option value="academic">Academic</option>
+      </select>
+    </div>
+    <div class="select-group">
+      <label class="select-label" for="strength">Strength</label>
+      <select id="strength">
+        <option value="light">Light</option>
+        <option value="moderate" selected>Moderate</option>
+        <option value="heavy">Heavy</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Editor panels -->
+  <div class="editor-grid">
+    <!-- Input -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Your Text</span>
+        <div class="panel-btns">
+          <button class="btn-sm" id="pasteBtn">Paste</button>
+          <button class="btn-sm" id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <textarea id="inputText" placeholder="Paste your AI-generated text, essay, email, or any paragraph here…" aria-label="Input text"></textarea>
+      <div class="panel-foot">
+        <span class="wc-count" id="inputWC">0 words</span>
+        <span class="wc-count" style="color:var(--ink-4);font-size:11px;">Max ~3 000 words</span>
+      </div>
+    </div>
+
+    <!-- Output -->
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Result</span>
+        <div class="panel-btns">
+          <button class="btn-sm" id="copyBtn">Copy</button>
+          <button class="btn-sm" id="swapBtn">Use as input</button>
+        </div>
+      </div>
+      <div class="result-box" id="resultBox" aria-live="polite" aria-label="Output text">
+        <span class="result-placeholder">Your rewritten text will appear here…</span>
+      </div>
+      <div class="panel-foot">
+        <span class="wc-count" id="outputWC">0 words</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action row -->
+  <div class="action-row">
+    <button class="btn-primary" id="runBtn">
+      <div class="spinner" id="spinner"></div>
+      <span id="btnLabel">✦ Humanize Text</span>
+    </button>
+    <button class="btn-ghost" id="downloadBtn">↓ Download .txt</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar" id="statsBar">
+    <div class="stat-card"><div class="stat-label">Input words</div><div class="stat-val" id="statIn">—</div></div>
+    <div class="stat-card"><div class="stat-label">Output words</div><div class="stat-val" id="statOut">—</div></div>
+    <div class="stat-card"><div class="stat-label">Word change</div><div class="stat-val" id="statDiff">—</div></div>
+  </div>
+</div>
+
+<!-- AD SLOT MID -->
+<div class="ad-slot" style="margin-top:1.5rem;">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5536166511863260"
+    data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" aria-labelledby="how-title">
+  <div class="section-label">How it works</div>
+  <div class="steps-grid">
+    <div class="step"><div class="step-num">01</div><h3>Paste your text</h3><p>Paste any AI-generated, academic, or robotic-sounding text into the input box.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>Choose your mode</h3><p>Select a mode: Humanize, Paraphrase, Simplify, Formal, Expand, or Academic.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>Set tone & strength</h3><p>Pick your preferred tone (casual, professional, etc.) and how aggressively to rewrite.</p></div>
+    <div class="step"><div class="step-num">04</div><h3>Get your result</h3><p>Click the button and receive your rewritten text in seconds. Copy or download it.</p></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" aria-labelledby="features-title" style="margin-top:2.5rem;">
+  <div class="section-label">What Humanizor can do</div>
+  <div class="features-grid">
+    <div class="feat-card"><div class="feat-icon">🧠</div><h3>Humanize AI Text</h3><p>Strip robotic patterns from ChatGPT, Gemini, or any AI output and make it sound genuinely human.</p></div>
+    <div class="feat-card"><div class="feat-icon">✍️</div><h3>Smart Paraphrasing</h3><p>Reword sentences intelligently while preserving the original meaning and intent.</p></div>
+    <div class="feat-card"><div class="feat-icon">🎓</div><h3>Academic Rewriter</h3><p>Refine essays and research writing with scholarly language, structure, and style.</p></div>
+    <div class="feat-card"><div class="feat-icon">⚙️</div><h3>Tone Control</h3><p>Choose from natural, conversational, professional, casual, or academic tones.</p></div>
+    <div class="feat-card"><div class="feat-icon">📏</div><h3>Expand or Simplify</h3><p>Add detail and depth, or cut complexity — your choice of direction every time.</p></div>
+    <div class="feat-card"><div class="feat-icon">🆓</div><h3>Always Free</h3><p>No account, no subscription, no watermarks. Humanizor is free to use for everyone.</p></div>
+  </div>
+</section>
+
+<!-- AD SLOT BOTTOM -->
+<div class="ad-slot" style="margin-top:2.5rem;">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5536166511863260"
+    data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section" aria-labelledby="faq-title">
+  <h2 id="faq-title">Frequently asked questions</h2>
+
+  <div class="faq-item">
+    <button class="faq-q">What is an AI text humanizer?</button>
+    <div class="faq-a">An AI text humanizer is a tool that rewrites AI-generated content — such as text produced by ChatGPT, Gemini, or Claude — so it reads naturally, like a human wrote it. It removes formulaic sentence structures, passive voice overuse, and repetitive phrasing that are characteristic of AI writing.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Is Humanizor free to use?</button>
+    <div class="faq-a">Yes. Humanizor is completely free. There are no accounts, subscriptions, or usage limits to worry about. Just paste your text and go.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">What is the difference between Humanize and Paraphrase modes?</button>
+    <div class="faq-a">Humanize mode specifically targets AI writing patterns — it removes the tell-tale signs that a machine generated the text. Paraphrase mode is a more general rewrite that keeps the meaning but uses different wording, regardless of whether the source is AI or human.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">How long can my text be?</button>
+    <div class="faq-a">We recommend keeping input under 3,000 words for the best results. Very long texts may produce less coherent rewrites because the AI has to handle more context at once.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Will this help me pass AI detection tools?</button>
+    <div class="faq-a">Humanizor significantly changes sentence structure, word choice, and flow, which can reduce AI detection scores. However, no tool can guarantee bypassing every AI detector, and we encourage using Humanizor to genuinely improve writing quality rather than to deceive.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Is my text stored or shared?</button>
+    <div class="faq-a">No. Your text is sent securely to our server only to process your request, and it is not stored, logged, or shared with any third party. See our <a href="privacy.html">Privacy Policy</a> for full details.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-brand-name">Humanizor</span>
+      <p>Free AI text humanizer and paraphraser. Make your writing sound natural and human again.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Tool</h4>
+      <ul>
+        <li><a href="/#tool">Humanize AI</a></li>
+        <li><a href="/#tool">Paraphrase</a></li>
+        <li><a href="/#tool">Simplify</a></li>
+        <li><a href="/#tool">Academic</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Use</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Humanizor. All rights reserved.</span>
+    <div class="powered"><span class="powered-dot"></span>Powered by Claude AI</div>
+  </div>
+</footer>
+
+<div id="toast" role="alert" aria-live="assertive"></div>
+
+<script>
+  /* ============================================================
+     Humanizor — Main Tool Script
+  ============================================================ */
+
+  const MODES = {
+    humanize:  (tone, str, text) => `You are an expert writing editor. Rewrite the following text so it sounds completely natural, ${tone}, and human-written. Remove all AI-like phrasing, formulaic structures, excessive transitions, and robotic patterns. Apply a ${str} level of transformation — the result should feel like a real person wrote it. Return ONLY the rewritten text, no commentary.\n\n${text}`,
+    paraphrase:(tone, str, text) => `Paraphrase the following text in a ${tone} tone with ${str} rephrasing. Preserve the original meaning completely but use fresh vocabulary and varied sentence structure. Return ONLY the paraphrased text.\n\n${text}`,
+    simplify:  (tone, str, text) => `Simplify the following text so it is very easy to read and understand. Use ${tone} language. Apply ${str} simplification — remove jargon, shorten sentences, and favour plain words. Return ONLY the simplified text.\n\n${text}`,
+    formal:    (tone, str, text) => `Rewrite the following text in a formal, polished register suitable for professional or business communication. Apply ${str} formality. Return ONLY the rewritten text.\n\n${text}`,
+    expand:    (tone, str, text) => `Expand the following text by adding detail, context, and explanation in a ${tone} tone. Apply ${str} expansion — make it richer without padding or repetition. Return ONLY the expanded text.\n\n${text}`,
+    academic:  (tone, str, text) => `Rewrite the following text in a polished academic style suitable for essays or research papers. Use scholarly vocabulary, clear argumentation, and formal structure. Apply ${str} revision. Return ONLY the rewritten text.\n\n${text}`,
+  };
+
+  const LABELS = {
+    humanize: '✦ Humanize Text', paraphrase: '✦ Paraphrase',
+    simplify: '✦ Simplify', formal: '✦ Make Formal',
+    expand: '✦ Expand Text', academic: '✦ Academic Rewrite',
+  };
+
+  let mode = 'humanize';
+  let lastResult = '';
+
+  const inputEl   = document.getElementById('inputText');
+  const resultBox = document.getElementById('resultBox');
+  const runBtn    = document.getElementById('runBtn');
+  const btnLabel  = document.getElementById('btnLabel');
+  const spinner   = document.getElementById('spinner');
+  const inputWC   = document.getElementById('inputWC');
+  const outputWC  = document.getElementById('outputWC');
+  const statsBar  = document.getElementById('statsBar');
+  const toast     = document.getElementById('toast');
+
+  function wc(t) { return t.trim() ? t.trim().split(/\s+/).length : 0; }
+  function wcLabel(n) { return n + (n === 1 ? ' word' : ' words'); }
+
+  function showToast(msg, duration = 2800) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), duration);
+  }
+
+  // Word count on input
+  inputEl.addEventListener('input', () => { inputWC.textContent = wcLabel(wc(inputEl.value)); });
+
+  // Mode pills
+  document.querySelectorAll('.pill-tab').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.pill-tab').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      mode = pill.dataset.mode;
+      btnLabel.textContent = LABELS[mode];
+    });
+  });
+
+  // Paste
+  document.getElementById('pasteBtn').addEventListener('click', async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      inputEl.value = text;
+      inputEl.dispatchEvent(new Event('input'));
+    } catch { showToast('Clipboard access denied — paste manually (Ctrl+V / ⌘V).'); }
+  });
+
+  // Clear
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    inputEl.value = '';
+    inputWC.textContent = '0 words';
+  });
+
+  // Copy result
+  document.getElementById('copyBtn').addEventListener('click', () => {
+    if (!lastResult) { showToast('Nothing to copy yet.'); return; }
+    navigator.clipboard.writeText(lastResult).then(() => showToast('Copied to clipboard ✓'));
+  });
+
+  // Use result as input
+  document.getElementById('swapBtn').addEventListener('click', () => {
+    if (!lastResult) return;
+    inputEl.value = lastResult;
+    inputEl.dispatchEvent(new Event('input'));
+    resultBox.innerHTML = '<span class="result-placeholder">Your rewritten text will appear here…</span>';
+    outputWC.textContent = '0 words';
+    lastResult = '';
+    statsBar.style.display = 'none';
+    showToast('Result moved to input ✓');
+  });
+
+  // Download
+  document.getElementById('downloadBtn').addEventListener('click', () => {
+    if (!lastResult) { showToast('Nothing to download yet.'); return; }
+    const blob = new Blob([lastResult], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'humanizor-result.txt';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  // Run
+  runBtn.addEventListener('click', async () => {
+    const text = inputEl.value.trim();
+    if (!text) { showToast('Please paste some text first.'); return; }
+
+    const tone = document.getElementById('tone').value;
+    const strength = document.getElementById('strength').value;
+    const prompt = MODES[mode](tone, strength, text);
+    const inWords = wc(text);
+
+    runBtn.disabled = true;
+    spinner.style.display = 'block';
+    btnLabel.textContent = 'Processing…';
+    resultBox.innerHTML = '<span class="result-placeholder">Rewriting your text…</span>';
+    outputWC.textContent = '0 words';
+    statsBar.style.display = 'none';
+
+    try {
+      const res = await fetch('/api/humanize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        showToast('Error: ' + (data.error || 'Something went wrong.'), 4000);
+        resultBox.innerHTML = '<span class="result-placeholder">Your rewritten text will appear here…</span>';
+        return;
+      }
+
+      lastResult = data.output;
+      resultBox.textContent = lastResult;
+
+      const outWords = wc(lastResult);
+      outputWC.textContent = wcLabel(outWords);
+
+      document.getElementById('statIn').textContent = inWords;
+      document.getElementById('statOut').textContent = outWords;
+      const diff = outWords - inWords;
+      document.getElementById('statDiff').textContent = (diff >= 0 ? '+' : '') + diff;
+      statsBar.style.display = 'grid';
+
+    } catch {
+      showToast('Network error. Please check your connection and try again.', 4000);
+      resultBox.innerHTML = '<span class="result-placeholder">Your rewritten text will appear here…</span>';
+    } finally {
+      runBtn.disabled = false;
+      spinner.style.display = 'none';
+      btnLabel.textContent = LABELS[mode];
+    }
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+    });
+  });
+</script>
+
+</body>
+</html>

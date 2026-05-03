@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — Humanizor</title>
+  <meta name="description" content="Get in touch with the Humanizor team. We welcome feedback, questions, and partnership enquiries." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://humanizor.com/contact.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5536166511863260" crossorigin="anonymous"></script>
+  <style>
+    .contact-wrap {
+      max-width: 580px; margin: 0 auto; padding: 0 1.5rem 4rem;
+    }
+    .contact-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2.5rem;
+      box-shadow: var(--shadow);
+    }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: var(--ink-2); margin-bottom: 0.45rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 10px 13px;
+      font-family: var(--font-sans); font-size: 14px;
+      color: var(--ink); background: var(--surface-2);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm); outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--green); background: #fff; }
+    .form-group textarea { resize: vertical; min-height: 130px; line-height: 1.65; }
+    .form-note { font-size: 12px; color: var(--ink-4); margin-top: 0.4rem; }
+    .contact-info {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;
+    }
+    @media (max-width: 500px) { .contact-info { grid-template-columns: 1fr; } }
+    .info-card {
+      background: var(--surface-3); border-radius: var(--radius-sm);
+      padding: 1.1rem; border: 1px solid var(--border);
+    }
+    .info-icon { font-size: 20px; margin-bottom: 0.4rem; }
+    .info-card h3 { font-size: 13px; font-weight: 600; margin-bottom: 2px; color: var(--ink); }
+    .info-card p { font-size: 12.5px; color: var(--ink-3); }
+    .success-msg {
+      display: none; background: var(--green-light); border: 1px solid #b2e8d6;
+      border-radius: var(--radius-sm); padding: 1rem 1.25rem;
+      color: var(--green-dark); font-size: 14px; margin-top: 1rem;
+    }
+    .success-msg.show { display: block; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation">
+  <a href="/" class="nav-brand">
+    <div class="nav-logo">H</div>
+    <span class="nav-name">Humanizor</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Tool</a></li>
+    <li><a href="blog.html" class="hide-sm">Blog</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="/#tool" class="nav-cta">Try Free</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <div class="badge"><span class="badge-dot"></span>Get in Touch</div>
+  <h1>We'd love to hear from you</h1>
+  <p>Questions, feedback, bug reports, or partnership ideas — we read every message and reply promptly.</p>
+</section>
+
+<div class="ad-slot">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5536166511863260"
+    data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="contact-wrap">
+
+  <div class="contact-info">
+    <div class="info-card"><div class="info-icon">💬</div><h3>General enquiries</h3><p>Questions about how the tool works or anything else on your mind.</p></div>
+    <div class="info-card"><div class="info-icon">🐛</div><h3>Bug reports</h3><p>Found something broken? Tell us exactly what happened and we'll fix it.</p></div>
+    <div class="info-card"><div class="info-icon">💡</div><h3>Feature requests</h3><p>Have an idea to improve Humanizor? We're genuinely interested.</p></div>
+    <div class="info-card"><div class="info-icon">🤝</div><h3>Partnerships</h3><p>Interested in collaborating or integrating? Let's talk.</p></div>
+  </div>
+
+  <div class="contact-card">
+    <form id="contactForm" novalidate>
+      <div class="form-group">
+        <label for="name">Your name *</label>
+        <input type="text" id="name" name="name" placeholder="Jane Smith" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email address *</label>
+        <input type="email" id="email" name="email" placeholder="jane@example.com" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject *</label>
+        <select id="subject" name="subject" required>
+          <option value="">Select a topic…</option>
+          <option value="general">General question</option>
+          <option value="bug">Bug report</option>
+          <option value="feature">Feature request</option>
+          <option value="partnership">Partnership / business</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" placeholder="Write your message here…" required></textarea>
+        <p class="form-note">Please be as specific as possible. For bug reports, include what you typed, what you expected, and what happened.</p>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Send Message</button>
+      <div class="success-msg" id="successMsg">
+        ✓ Thank you! Your message has been received. We typically reply within 1–2 business days.
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-brand-name">Humanizor</span>
+      <p>Free AI text humanizer and paraphraser. Make your writing sound natural and human again.</p>
+    </div>
+    <div class="footer-col"><h4>Tool</h4><ul><li><a href="/#tool">Humanize AI</a></li><li><a href="/#tool">Paraphrase</a></li><li><a href="/#tool">Simplify</a></li><li><a href="/#tool">Academic</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Humanizor. All rights reserved.</span>
+    <div class="powered"><span class="powered-dot"></span>Powered by Claude AI</div>
+  </div>
+</footer>
+<div id="toast"></div>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !subject || !message) {
+      document.getElementById('toast').textContent = 'Please fill in all required fields.';
+      document.getElementById('toast').classList.add('show');
+      setTimeout(() => document.getElementById('toast').classList.remove('show'), 3000);
+      return;
+    }
+
+    // In production, replace this with a real form submission (Formspree, EmailJS, etc.)
+    document.getElementById('successMsg').classList.add('show');
+    this.reset();
+  });
+</script>
+</body>
+</html>
